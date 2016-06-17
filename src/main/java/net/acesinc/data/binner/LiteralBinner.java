@@ -14,10 +14,17 @@ import java.util.List;
  */
 public class LiteralBinner extends Binner {
 
+    public LiteralBinner(String countName) {
+        super(countName);
+    }
+    public LiteralBinner(String countName, String dataFieldName) {
+        super(countName, dataFieldName);
+    }
+    
     @Override
     protected List<String> generateBinNamesForData(Object value) {
         List<String> binNames = new ArrayList<>();
-        binNames.add(getCountName() + "." + Binner.ALL_COUNT_NAME);
+        
         binNames.add(getCountName() + "." + value);
         return binNames;
     }

@@ -23,13 +23,29 @@ public abstract class Binner {
     private String dataFieldName;
     
     public static final String ALL_COUNT_NAME = "All";
+
+    public Binner(String countName) {
+        this(countName, countName);
+    }
+    public Binner(String countName, String dataFieldName) {
+        this.countName = countName;
+        this.dataFieldName = dataFieldName;
+    }
+    
     
     public List<String> generateBinNames(Object data) {
         try {
             DataExtractor ext = DataExtractorFactory.getDataExtractor(data);
             if (ext != null) {
                 Object val = ext.getValueForFieldName(dataFieldName);
-                return generateBinNamesForData(val);
+                List<String> binNames = new ArrayList<>();
+                
+                //always add an All count
+                binNames.add(getCountName() + "." + Binner.ALL_COUNT_NAME);
+                
+                //now add all the generated count names
+                binNames.addAll(generateBinNamesForData(val));
+                return binNames;
             }
         } catch (Exception e) {
             log.error("Error getting DataExtractor", e);
