@@ -98,12 +98,12 @@ public class GeoTileBinner extends Binner {
             //TODO...
             for (int zoomLevel = 0; zoomLevel < maxLevel; zoomLevel++) {
                 //calculate x and y at each zoom level
-                binNames.add(getCountName() + "." + getTileNumber(lat, lon, zoomLevel));
+                binNames.add(getBinName() + "." + getTileNumber(lat, lon, zoomLevel));
             }
         }
 
         if (binNames.isEmpty()) {
-            log.warn("Provided value for count [ " + getCountName() + " ] is not a valid format. Please provide an array/list of Double values in lat, lon order");
+            log.warn("Provided value for count [ " + getBinName() + " ] is not a valid format. Please provide an array/list of Double values in lat, lon order");
         }
         return binNames;
     }

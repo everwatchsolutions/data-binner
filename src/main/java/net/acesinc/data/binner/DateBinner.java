@@ -73,7 +73,7 @@ public class DateBinner extends Binner {
             List<SimpleDateFormat> formatters = granToSDFMap.get(granulatiry);
             formatters.stream().forEach((sdf) -> {
                 String dateValue = sdf.format(finalDate);
-                binNames.add(getCountName() + "." + dateValue);
+                binNames.add(getBinName() + "." + dateValue);
             });
         }
         return binNames;

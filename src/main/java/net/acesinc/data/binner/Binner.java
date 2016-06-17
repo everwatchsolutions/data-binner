@@ -20,17 +20,17 @@ public abstract class Binner {
 
     private static Logger log = LoggerFactory.getLogger(Binner.class);
 
-    private String countName;
+    private String binName;
     private String dataFieldName;
 
     public static final String ALL_COUNT_NAME = "All";
 
-    public Binner(String countName) {
-        this(countName, countName);
+    public Binner(String binName) {
+        this(binName, binName);
     }
 
-    public Binner(String countName, String dataFieldName) {
-        this.countName = countName;
+    public Binner(String binName, String dataFieldName) {
+        this.binName = binName;
         this.dataFieldName = dataFieldName;
     }
 
@@ -43,7 +43,7 @@ public abstract class Binner {
                     List<String> binNames = new ArrayList<>();
 
                     //always add an All count
-                    binNames.add(getCountName() + "." + Binner.ALL_COUNT_NAME);
+                    binNames.add(getBinName() + "." + Binner.ALL_COUNT_NAME);
 
                     //now add all the generated count names
                     binNames.addAll(generateBinNamesForData(val));
@@ -61,17 +61,17 @@ public abstract class Binner {
     protected abstract List<String> generateBinNamesForData(Object value);
 
     /**
-     * @return the countName
+     * @return the binName
      */
-    public String getCountName() {
-        return countName;
+    public String getBinName() {
+        return binName;
     }
 
     /**
-     * @param countName the countName to set
+     * @param binName the binName to set
      */
-    public void setCountName(String countName) {
-        this.countName = countName;
+    public void setBinName(String binName) {
+        this.binName = binName;
     }
 
     /**

@@ -25,7 +25,7 @@ public class LiteralBinner extends Binner {
     protected List<String> generateBinNamesForData(Object value) {
         List<String> binNames = new ArrayList<>();
         
-        binNames.add(getCountName() + "." + value);
+        binNames.add(getBinName() + "." + value);
         return binNames;
     }
     

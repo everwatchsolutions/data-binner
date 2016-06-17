@@ -45,14 +45,14 @@ public class NumericBinner extends Binner {
                 long binLower = roundedVal;
                 long binUpper = roundedVal + place.longValue();
                 
-                binNames.add(getCountName() + "." + binLower + "-" + binUpper);
+                binNames.add(getBinName() + "." + binLower + "-" + binUpper);
             }
         }
         return binNames;
     }
 
     private long roundToNearestN(double value, int n) {
-        return Math.round(value / n) * n;
+        return new Double(Math.floor(value / n)).longValue() * n;
     }
 
 }
