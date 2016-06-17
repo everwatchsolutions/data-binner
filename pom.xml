@@ -6,7 +6,7 @@
     <packaging>jar</packaging>
     <version>1.0.0-SNAPSHOT</version>
     <name>${project.artifactId}</name>
-    <description>A generic tool to generate binned counts of data</description>
+    <description>A generic tool to sort data into bins that can later be counted</description>
     <url>https://github.com/acesinc/data-binner</url>
     
     <scm>
