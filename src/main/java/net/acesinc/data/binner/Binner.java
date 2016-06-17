@@ -17,42 +17,47 @@ import org.slf4j.LoggerFactory;
  * @author andrewserff
  */
 public abstract class Binner {
+
     private static Logger log = LoggerFactory.getLogger(Binner.class);
-    
+
     private String countName;
     private String dataFieldName;
-    
+
     public static final String ALL_COUNT_NAME = "All";
 
     public Binner(String countName) {
         this(countName, countName);
     }
+
     public Binner(String countName, String dataFieldName) {
         this.countName = countName;
         this.dataFieldName = dataFieldName;
     }
-    
-    
+
     public List<String> generateBinNames(Object data) {
         try {
             DataExtractor ext = DataExtractorFactory.getDataExtractor(data);
             if (ext != null) {
                 Object val = ext.getValueForFieldName(dataFieldName);
-                List<String> binNames = new ArrayList<>();
-                
-                //always add an All count
-                binNames.add(getCountName() + "." + Binner.ALL_COUNT_NAME);
-                
-                //now add all the generated count names
-                binNames.addAll(generateBinNamesForData(val));
-                return binNames;
+                if (val != null) {
+                    List<String> binNames = new ArrayList<>();
+
+                    //always add an All count
+                    binNames.add(getCountName() + "." + Binner.ALL_COUNT_NAME);
+
+                    //now add all the generated count names
+                    binNames.addAll(generateBinNamesForData(val));
+                    return binNames;
+                } else {
+                    log.warn("No data exists for field [ " + dataFieldName + " ]");
+                }
             }
         } catch (Exception e) {
             log.error("Error getting DataExtractor", e);
         }
         return new ArrayList<>();
-    } 
-    
+    }
+
     protected abstract List<String> generateBinNamesForData(Object value);
 
     /**
@@ -82,5 +87,5 @@ public abstract class Binner {
     public void setDataFieldName(String dataFieldName) {
         this.dataFieldName = dataFieldName;
     }
-    
+
 }
