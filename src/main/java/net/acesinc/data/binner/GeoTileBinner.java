@@ -19,7 +19,8 @@ public class GeoTileBinner extends Binner {
 
     private static Logger log = LoggerFactory.getLogger(GeoTileBinner.class);
 
-    private int maxLevel = 6;
+    public static int MAX_LEVEL_DEFAULT = 10;
+    private int maxLevel = MAX_LEVEL_DEFAULT;
     private String latFieldName = "lat";
     private String lonFieldName = "lon";
 

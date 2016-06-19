@@ -14,7 +14,9 @@ import java.util.List;
  */
 public class NumericBinner extends Binner {
 
-    private int maxLevel = 6;
+    
+    public static int MAX_LEVEL_DEFAULT = 6;
+    private int maxLevel = MAX_LEVEL_DEFAULT;
 
     public NumericBinner(String countName) {
         super(countName);
