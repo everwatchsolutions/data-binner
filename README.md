@@ -198,3 +198,48 @@ And a Binner like:
 Binner binner = new GeoTileBinner("geo", "point");
 List<String> bins = binner.generateBinNames(jsonString);
 ```
+
+### Merged Binner
+
+The Merged Binner is a special Binner that takes the output of other Binners and generates merged Bin names based on those generated Bin names.  This is helpful if you want to be able to know answer a question like: how many Subaru WRXs were made in Dec of 2016. You might look up a bin name of `date.201612.model.Impreza WRX` to get this count. The Merged Binner took the Date and Literal Bins and combined them for you to create this Bin name. 
+
+Input data:
+
+```
+{
+    "myDate": "2012-04-23T18:25:43.511Z",
+    "car": {
+        "make": "Subaru",
+        "model": "Impreza WRX"
+    }
+}
+```
+
+The Binners would be configured like:
+
+```
+Binner dateBinner = new DateBinner("date", "myDate", DateGranularity.MIN);
+Binner modelBinner = new LiteralBinner("car.model");
+
+Binner mergedBinner = new MergedBinner(Arrays.asList(dateBinner, modelBinner));
+        
+List<String> bins = mergedBinner.generateBinNames(data);
+```
+
+Would generate Bins like:
+
+```
+date.All.car.model.All
+date.2012.car.model.All
+date.201225.car.model.All
+date.20120423.car.model.All
+date.2012042306.car.model.All
+date.201204230625.car.model.All
+date.All.car.model.Impreza WRX
+date.2012.car.model.Impreza WRX
+date.201225.car.model.Impreza WRX
+date.20120423.car.model.Impreza WRX
+date.2012042306.car.model.Impreza WRX
+date.201204230625.car.model.Impreza WRX
+```
+

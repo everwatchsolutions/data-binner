@@ -22,6 +22,7 @@ public abstract class Binner {
 
     private String binName;
     private String dataFieldName;
+    private List<String> generatedBinNames;
 
     public static final String ALL_COUNT_NAME = "All";
 
@@ -40,14 +41,15 @@ public abstract class Binner {
             if (ext != null) {
                 Object val = ext.getValueForFieldName(dataFieldName);
                 if (val != null) {
-                    List<String> binNames = new ArrayList<>();
+                    generatedBinNames = new ArrayList<>();
 
                     //always add an All count
-                    binNames.add(getBinName() + "." + Binner.ALL_COUNT_NAME);
+                    generatedBinNames.add(getBinName() + "." + Binner.ALL_COUNT_NAME);
 
                     //now add all the generated count names
-                    binNames.addAll(generateBinNamesForData(val));
-                    return binNames;
+                    generatedBinNames.addAll(generateBinNamesForData(val));
+                    
+                    return generatedBinNames;
                 } else {
                     log.warn("No data exists for field [ " + dataFieldName + " ]");
                 }
@@ -86,6 +88,20 @@ public abstract class Binner {
      */
     public void setDataFieldName(String dataFieldName) {
         this.dataFieldName = dataFieldName;
+    }
+
+    /**
+     * @return the generatedBinNames
+     */
+    public List<String> getGeneratedBinNames() {
+        return generatedBinNames;
+    }
+
+    /**
+     * @param generatedBinNames the generatedBinNames to set
+     */
+    public void setGeneratedBinNames(List<String> generatedBinNames) {
+        this.generatedBinNames = generatedBinNames;
     }
 
 }
