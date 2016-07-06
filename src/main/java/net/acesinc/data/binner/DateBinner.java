@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.lang3.time.FastDateFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,16 +25,16 @@ public class DateBinner extends Binner {
     private static Logger log = LoggerFactory.getLogger(DateBinner.class);
     
     private SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-    private SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
-    private SimpleDateFormat yearMonthFormat = new SimpleDateFormat("yyyymm");
-    private SimpleDateFormat yearMonthDayFormat = new SimpleDateFormat("yyyyMMdd");
-    private SimpleDateFormat yearMonthDayHourFormat = new SimpleDateFormat("yyyyMMddhh");
-    private SimpleDateFormat yearMonthDayHourMinFormat = new SimpleDateFormat("yyyyMMddhhmm");
-    private SimpleDateFormat yearMonthDayHourMinSecFormat = new SimpleDateFormat("yyyyMMddhhmmss");
-    private SimpleDateFormat yearMonthDayHourMinSecMSFormat = new SimpleDateFormat("yyyyMMddhhmmssSSS");
+    private FastDateFormat yearFormat = FastDateFormat.getInstance("yyyy");
+    private FastDateFormat yearMonthFormat = FastDateFormat.getInstance("yyyymm");
+    private FastDateFormat yearMonthDayFormat = FastDateFormat.getInstance("yyyyMMdd");
+    private FastDateFormat yearMonthDayHourFormat = FastDateFormat.getInstance("yyyyMMddhh");
+    private FastDateFormat yearMonthDayHourMinFormat = FastDateFormat.getInstance("yyyyMMddhhmm");
+    private FastDateFormat yearMonthDayHourMinSecFormat = FastDateFormat.getInstance("yyyyMMddhhmmss");
+    private FastDateFormat yearMonthDayHourMinSecMSFormat = FastDateFormat.getInstance("yyyyMMddhhmmssSSS");
     
     private DateGranularity granulatiry;
-    private Map<DateGranularity, List<SimpleDateFormat>> granToSDFMap;
+    private Map<DateGranularity, List<FastDateFormat>> granToSDFMap;
     
     public DateBinner(String countName, DateGranularity granularity) {
         this(countName, countName, granularity);
@@ -64,13 +65,16 @@ public class DateBinner extends Binner {
             } catch (ParseException ex) {
                 log.warn("String value is not a Date format we support. Please provide dates in ISO8601 format", ex);
             }
+        } else if (Long.class.isAssignableFrom(value.getClass())) {
+            date = new Date((Long) value);
         } else {
             //we don't know how to handle anything but dates...
+            log.warn("Value is not a Date or String [ " + value + " ] is of type [ " + value.getClass() + " ]");
         }
         
         if (date != null) {
             final Date finalDate = date;
-            List<SimpleDateFormat> formatters = granToSDFMap.get(granulatiry);
+            List<FastDateFormat> formatters = granToSDFMap.get(granulatiry);
             formatters.stream().forEach((sdf) -> {
                 String dateValue = sdf.format(finalDate);
                 binNames.add(getBinName() + "." + dateValue);
