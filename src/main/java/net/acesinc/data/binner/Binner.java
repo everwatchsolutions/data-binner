@@ -8,6 +8,7 @@ package net.acesinc.data.binner;
 import net.acesinc.data.binner.extractor.DataExtractorFactory;
 import net.acesinc.data.binner.extractor.DataExtractor;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +42,7 @@ public abstract class Binner {
             if (ext != null) {
                 Object val = ext.getValueForFieldName(dataFieldName);
                 if (val != null) {
-                    generatedBinNames = new ArrayList<>();
+                    generatedBinNames = Collections.synchronizedList(new ArrayList<>());
 
                     //always add an All count
                     generatedBinNames.add(getBinName() + "." + Binner.ALL_COUNT_NAME);
