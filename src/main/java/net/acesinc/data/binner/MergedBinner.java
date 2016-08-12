@@ -41,9 +41,11 @@ public class MergedBinner extends Binner {
 
         for (List<String> bins : generatedBins.subList(1, generatedBins.size())) {
             List<String> newBins = new ArrayList<>();
-            for (String bin : bins) {
-                for (String prefix : startingBins) {
-                    newBins.add(prefix + "." + bin);
+            if (bins != null) {
+                for (String bin : bins) {
+                    for (String prefix : startingBins) {
+                        newBins.add(prefix + "." + bin);
+                    }
                 }
             }
             binNames.addAll(newBins);

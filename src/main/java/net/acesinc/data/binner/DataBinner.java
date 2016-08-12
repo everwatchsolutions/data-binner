@@ -24,26 +24,29 @@ public class DataBinner {
         Binner date = new DateBinner("date", "myDate", DateGranularity.MSEC);
         Binner freq = new NumericBinner("freq", 10);
         Binner test = new LiteralBinner("test");
+        Binner missing = new GeoTileBinner("missing", "nope", 12);
         Binner geo = new GeoTileBinner("geo", "point", 17);
         
         List<Binner> binners = Arrays.asList(
-                test,
-                date,
-                freq,
-                new NumericBinner("airSpeed", 10),
-                new NumericBinner("myInt", 10),
-                new NumericBinner("bigFreq", 10),
-                geo,
-                new GeoTileBinner("geoObj", "pointObj", 10, "x", "y"),
+//                test,
+//                date,
+//                freq,
+//                new NumericBinner("airSpeed", 10),
+//                new NumericBinner("myInt", 10),
+//                new NumericBinner("bigFreq", 10),
+//                geo,
+                missing,
+//                new GeoTileBinner("geoObj", "pointObj", 10, "x", "y"),
                 new GeoTileBinner("geoObj2", "pointObj2")
         );
 
-//        binners.stream().forEach((b) -> {
-//            List<String> bins = b.generateBinNames(data);
-//            for (String bin : bins) {
-//                log.info("Bin [ " + bin + " ]");
-//            }
-//        });
+        String emptyData = "{}";
+        binners.stream().forEach((b) -> {   
+            List<String> bins = b.generateBinNames(emptyData);
+            for (String bin : bins) {
+                log.info("Bin [ " + bin + " ]");
+            }
+        });
 
         MergedBinner b = new MergedBinner(Arrays.asList(date,geo,freq, new NumericBinner("myInt", 10)));
         List<String> bins = b.generateBinNames(data);

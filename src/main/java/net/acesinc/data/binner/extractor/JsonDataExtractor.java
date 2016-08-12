@@ -35,7 +35,11 @@ public class JsonDataExtractor extends DataExtractor {
             Map<String, Object> nextLevel = (Map<String, Object>) parsedData.get(thisLevelName);
             return getValueForFieldName(nextLevelName, nextLevel);
         } else {
-            return dataMap.get(name);
+            if (dataMap != null) {
+                return dataMap.get(name);
+            } else {
+                return null;
+            }
         }
     }
     
