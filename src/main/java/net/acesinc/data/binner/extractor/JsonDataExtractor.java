@@ -32,7 +32,7 @@ public class JsonDataExtractor extends DataExtractor {
         if (name.contains(".")) {
             String thisLevelName = name.substring(0, name.indexOf("."));
             String nextLevelName = name.substring(name.indexOf(".") + 1);
-            Map<String, Object> nextLevel = (Map<String, Object>) parsedData.get(thisLevelName);
+            Map<String, Object> nextLevel = (Map<String, Object>) dataMap.get(thisLevelName);
             return getValueForFieldName(nextLevelName, nextLevel);
         } else {
             if (dataMap != null) {
