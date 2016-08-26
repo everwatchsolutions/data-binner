@@ -26,7 +26,7 @@ public class DateBinner extends Binner {
     
     private SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     private FastDateFormat yearFormat = FastDateFormat.getInstance("yyyy");
-    private FastDateFormat yearMonthFormat = FastDateFormat.getInstance("yyyymm");
+    private FastDateFormat yearMonthFormat = FastDateFormat.getInstance("yyyyMM");
     private FastDateFormat yearMonthDayFormat = FastDateFormat.getInstance("yyyyMMdd");
     private FastDateFormat yearMonthDayHourFormat = FastDateFormat.getInstance("yyyyMMddhh");
     private FastDateFormat yearMonthDayHourMinFormat = FastDateFormat.getInstance("yyyyMMddhhmm");
