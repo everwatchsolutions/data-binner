@@ -4,7 +4,7 @@
     <groupId>net.acesinc.data</groupId>
     <artifactId>data-binner</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.3</version>
     <name>${project.artifactId}</name>
     <description>A generic tool to sort data into bins that can later be counted</description>
     <url>https://github.com/acesinc/data-binner</url>
@@ -13,7 +13,7 @@
         <connection>scm:git:git://github.com/acesinc/data-binner.git</connection>
         <developerConnection>scm:git:git@github.com:acesinc/data-binner.git</developerConnection>
         <url>https://github.com/acesinc/data-binner</url>
-        <tag>HEAD</tag>
+        <tag>data-binner-1.0.3</tag>
     </scm>
   
     <licenses>
