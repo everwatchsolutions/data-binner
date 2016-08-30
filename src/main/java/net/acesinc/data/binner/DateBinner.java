@@ -28,10 +28,10 @@ public class DateBinner extends Binner {
     private FastDateFormat yearFormat = FastDateFormat.getInstance("yyyy");
     private FastDateFormat yearMonthFormat = FastDateFormat.getInstance("yyyyMM");
     private FastDateFormat yearMonthDayFormat = FastDateFormat.getInstance("yyyyMMdd");
-    private FastDateFormat yearMonthDayHourFormat = FastDateFormat.getInstance("yyyyMMddhh");
-    private FastDateFormat yearMonthDayHourMinFormat = FastDateFormat.getInstance("yyyyMMddhhmm");
-    private FastDateFormat yearMonthDayHourMinSecFormat = FastDateFormat.getInstance("yyyyMMddhhmmss");
-    private FastDateFormat yearMonthDayHourMinSecMSFormat = FastDateFormat.getInstance("yyyyMMddhhmmssSSS");
+    private FastDateFormat yearMonthDayHourFormat = FastDateFormat.getInstance("yyyyMMddHH");
+    private FastDateFormat yearMonthDayHourMinFormat = FastDateFormat.getInstance("yyyyMMddHHmm");
+    private FastDateFormat yearMonthDayHourMinSecFormat = FastDateFormat.getInstance("yyyyMMddHHmmss");
+    private FastDateFormat yearMonthDayHourMinSecMSFormat = FastDateFormat.getInstance("yyyyMMddHHmmssSSS");
     
     private DateGranularity granulatiry;
     private Map<DateGranularity, List<FastDateFormat>> granToSDFMap;
