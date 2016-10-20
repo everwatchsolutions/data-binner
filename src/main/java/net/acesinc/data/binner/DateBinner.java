@@ -56,14 +56,22 @@ public class DateBinner extends Binner {
     @Override
     protected List<String> generateBinNamesForData(Object value) {
         List<String> binNames = new ArrayList<>();
+        if (value == null) {
+            return binNames;
+        }
+        
         Date date = null;
         if (Date.class.isAssignableFrom(value.getClass())) {
             date = (Date)value;
         } else if (String.class.isAssignableFrom(value.getClass())) {
+            if (((String)value).isEmpty()) {
+                log.debug("Unable to generate date binNames for empty value");
+                return binNames;
+            }
             try {
                 date = iso8601Format.parse(value.toString());
-            } catch (ParseException ex) {
-                log.warn("String value is not a Date format we support. Please provide dates in ISO8601 format", ex);
+            } catch (Exception ex) {
+                log.warn("String value [ " + value + " ] is not a Date format we support. Please provide dates in ISO8601 format", ex);
             }
         } else if (Long.class.isAssignableFrom(value.getClass())) {
             date = new Date((Long) value);
@@ -76,8 +84,12 @@ public class DateBinner extends Binner {
             final Date finalDate = date;
             List<FastDateFormat> formatters = granToSDFMap.get(granulatiry);
             formatters.stream().forEach((sdf) -> {
-                String dateValue = sdf.format(finalDate);
-                binNames.add(getBinName() + "." + dateValue);
+                try {
+                    String dateValue = sdf.format(finalDate);
+                    binNames.add(getBinName() + "." + dateValue);
+                } catch (Exception e) {
+                    log.debug("Unable to format date [ " + finalDate + " ] with formatter [ " + sdf.getPattern() + " ]");
+                }
             });
         }
         return binNames;
