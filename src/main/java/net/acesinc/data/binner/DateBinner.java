@@ -5,7 +5,6 @@
  */
 package net.acesinc.data.binner;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,8 +22,9 @@ import org.slf4j.LoggerFactory;
  */
 public class DateBinner extends Binner {
     private static Logger log = LoggerFactory.getLogger(DateBinner.class);
-    
-    private SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    private static final String ISO8601_DATE_TEMPLATE = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+    //instantiating each time down below due to thread-safe problems that SimpleDateFormat has trouble with:  http://stackoverflow.com/questions/11368632/multiple-exceptions-thrown-parsing-date-string
+    private SimpleDateFormat iso8601Format;
     private FastDateFormat yearFormat = FastDateFormat.getInstance("yyyy");
     private FastDateFormat yearMonthFormat = FastDateFormat.getInstance("yyyyMM");
     private FastDateFormat yearMonthDayFormat = FastDateFormat.getInstance("yyyyMMdd");
@@ -33,7 +33,7 @@ public class DateBinner extends Binner {
     private FastDateFormat yearMonthDayHourMinSecFormat = FastDateFormat.getInstance("yyyyMMddHHmmss");
     private FastDateFormat yearMonthDayHourMinSecMSFormat = FastDateFormat.getInstance("yyyyMMddHHmmssSSS");
     
-    private DateGranularity granulatiry;
+    private DateGranularity granularity;
     private Map<DateGranularity, List<FastDateFormat>> granToSDFMap;
     
     public DateBinner(String countName, DateGranularity granularity) {
@@ -41,7 +41,7 @@ public class DateBinner extends Binner {
     }
     public DateBinner(String countName, String dataFieldName, DateGranularity granularity) {
         super(countName, dataFieldName);
-        this.granulatiry = granularity;
+        this.granularity = granularity;
         
         granToSDFMap = new HashMap<>();
         granToSDFMap.put(DateGranularity.YEAR, Arrays.asList(yearFormat));
@@ -69,6 +69,7 @@ public class DateBinner extends Binner {
                 return binNames;
             }
             try {
+                iso8601Format = new SimpleDateFormat(ISO8601_DATE_TEMPLATE);
                 date = iso8601Format.parse(value.toString());
             } catch (Exception ex) {
                 log.warn("String value [ " + value + " ] is not a Date format we support. Please provide dates in ISO8601 format", ex);
@@ -82,7 +83,7 @@ public class DateBinner extends Binner {
         
         if (date != null) {
             final Date finalDate = date;
-            List<FastDateFormat> formatters = granToSDFMap.get(granulatiry);
+            List<FastDateFormat> formatters = granToSDFMap.get(granularity);
             formatters.stream().forEach((sdf) -> {
                 try {
                     String dateValue = sdf.format(finalDate);
