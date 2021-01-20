@@ -34,7 +34,7 @@
         <org.slf4j-version>1.7.26</org.slf4j-version>
         <org.log4j-version>2.8.2</org.log4j-version>
         <java.version>1.8</java.version>
-        <jackson.version>2.9.10.1</jackson.version>
+        <jackson.version>2.9.10.7</jackson.version>
         <commons.io.version>2.6</commons.io.version>
         <guava.version>27.0.1-jre</guava.version>
         <owasp.dependency.check.plugin.version>5.2.2</owasp.dependency.check.plugin.version>
