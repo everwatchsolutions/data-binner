@@ -31,7 +31,6 @@
     </developers>
     
     <properties>
-        <org.slf4j-version>2.0.7</org.slf4j-version>
         <org.log4j-version>2.20.0</org.log4j-version>
         <java.version>1.8</java.version>
         <jackson.version>2.15.0</jackson.version>
@@ -40,11 +39,6 @@
         <owasp.dependency.check.plugin.version>8.2.1</owasp.dependency.check.plugin.version>
     </properties>
     <dependencies>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${org.slf4j-version}</version>
-        </dependency>
         <!-- Binding for Log4J -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
