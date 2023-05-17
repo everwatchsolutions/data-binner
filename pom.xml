@@ -31,8 +31,7 @@
     </developers>
     
     <properties>
-        <org.slf4j-version>2.0.7</org.slf4j-version>
-        <org.log4j-version>2.20.0</org.log4j-version>
+        <ch.qos.logback-version>1.4.7</ch.qos.logback-version>
         <java.version>1.8</java.version>
         <jackson.version>2.15.0</jackson.version>
         <commons.io.version>2.11.0</commons.io.version>
@@ -40,27 +39,16 @@
         <owasp.dependency.check.plugin.version>8.2.1</owasp.dependency.check.plugin.version>
     </properties>
     <dependencies>
+        <!-- Binding for Logback which includes SLF4J -->
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${org.slf4j-version}</version>
-        </dependency>
-        <!-- Binding for Log4J -->
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
-            <version>${org.log4j-version}</version>
-        </dependency>
-        <!-- Log4j API and Core implementation required for binding -->
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>${org.log4j-version}</version>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${ch.qos.logback-version}</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>${org.log4j-version}</version>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${ch.qos.logback-version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
